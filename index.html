@@ -6,6 +6,7 @@
   <title>Laurel & Kevin's Wedding Weekend</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/1872341da2.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-white text-gray-800 font-sans">
 
@@ -116,7 +117,7 @@
         <div class="flex justify-between">
           <span class="p-3">
             <strong>Location:</strong><br>
-            <a href="#maps" class="underline decoration-4 decoration-blue-300 hover:text-pink-600">The Laguna Cottages<br> 255 St Ann's Drive<br>Map</a>
+            <a href="#map-reception" class="underline decoration-4 decoration-blue-300 hover:text-pink-600">The Laguna Cottages<br> 255 St Ann's Drive<br>Map</a>
           </span>
           <span class="p-3">
             <strong>Need to know:</strong><br> Indoor and outdoor. <br>Metered street parking.<br> 
@@ -336,7 +337,6 @@
         <h4 class="text-xl font-semibold">Dinner party on Friday evening</h4>
         <p><strong>Nirvana Kitchen</strong> will serve a seated family-style meal.<br> You will be able to try several entrees at your table, including fish, beef, chicken, vegan, vegetarian and dairy- or gluten-free options. </p>
         <p>A selection of beer and wine will be served at the table.</p>
-
         <h4 class="text-xl font-semibold">Open-House reception on Saturday Afternoon</h4>
         <p><strong>Catering from our favorite! Urth Caffe</strong> </p>
         <p>Served buffet-style throughout the day:
@@ -349,30 +349,306 @@
         <p>Homemade lumpia!</p>
       </div>
       <div id="faqtown" class="mb-16 mx-auto space-y-6 text-center">
-        <h3 class="text-2xl font-semibold my-8">What can we do around town, before or after the celebration? </h3>
-        <p>We love Laguna for the art and the outdoor beauty - so much to explore within walking or very short driving distance. The city has an excellent <a href="https://www.visitlagunabeach.com/">Visitor's Guide</a> with <a href="https://www.visitlagunabeach.com/wp-content/uploads/2024/08/Visit-Laguna-Beach-Visitor-Map-Web-Ready.pdf">maps and itineraries</a>. Here are some of Kevin and Laurel's recommendations: </p>
+        <h3 class="text-2xl font-semibold my-8">
+          What can we do around town, before or after the celebration?
+        </h3>
         <p>
-          <ul>
-            <li>Go down on the sand: nice small waves, semi-pro beach volleyball, quiet and family-friendly areas just off the main beach, rock formations and tide pools.</li>
-            <li>Go up on the cliffs: our ceremony site on Friday at Crescent Point is just one of a dozen pocket parks and scenic outlooks that run along the coast. There are staircases up to the cliffs from the beach every few blocks, or you can walk out from PCH on the cliff level.</li> <li>Go on your own art-walk: World-class galleries open to the public on almost every block. Our favorite section in North Laguna runs on PCH from Aster (Urth Caffe on the corner) north a few blocks. But you can find them all along PCH south of downtown, and on Forest Avenue downtown. There's also an excellent <a href="https://lagunaartmuseum.org/">art museum</a>. </li>
-            <li>With kids? Meet the locals: Check out the Pacific Marine Mammal rescue center on Laguna Canyon Road (you drove past it on your way into town on CA-133).</li>
-            <li>With kids? Alta Laguna Park, just a few minutes up the big hill from our cottages/reception! It has a big playground, tennis/pickleball and shade trees.</li>
-            <li>Right next to the park is the Top of the World scenic view and trailhead for several easy-to-hard foothill hikes.</li>
-            <li>Take a day or night hike in Crystal Cove, a lovely state park just a few minutes north of Laguna, on both sides of PCH.</li>
-            <li>Check out the Saturday morning Farmers Market on Forest Ave.</li>
-          </ul>
+          We love Laguna for the art and the outdoor beauty - so much to explore within walking or very short driving distance. 
+          The city has an excellent <a href="https://www.visitlagunabeach.com/">Visitor's Guide</a> with <a href="https://www.visitlagunabeach.com/wp-content/uploads/2024/08/Visit-Laguna-Beach-Visitor-Map-Web-Ready.pdf">maps and itineraries</a>. 
+          Here are some of Kevin and Laurel's recommendations:
         </p>
-        <p>
-          <ul>
-            <li>Fine dining favorites: Nirvana Kitchen or Nick's.</li>
-            <li>Casual dining: The Taco Stand or Gina's (but all the pizza around here is good) </li>
-            <li>For drinks + eats: South of Nick's (swanky) or Hennessey's (classic pub)</li>
-            <li>Late night drinks/clubs: Rooftop Lounge (or any other rooftop bar on one of the many hotels along the beach) or  Sandpiper Lounge (dive bar, live music) or The Drake (upscale, jazz)</li>
-            <li>Treats: Le Macaron or South Swell for hand-dipped ice cream bars</li>
-            <li>Coffee: Urth Caffe or Laguna Coffee Co (and yes there is a Starbucks across from the main beach)</li>
-            <li>Groceries: Whole Foods (downtown) or Ralphs (on PCH walking distance from Laguna Cottages reception venue)</li>
-          </ul>
-        </p>
+        <!-- Accordian -->
+        <div x-data="{ openIndex: null }" class="max-w-xl mx-auto divide-y divide-gray-200">
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 1 ? null : 1)" :aria-expanded="(openIndex === 1).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Go down on the sand 
+                </span>
+                <svg :class="openIndex === 1 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel1"
+              x-bind:style="openIndex === 1 ? `max-height: ${$refs.panel1.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Nice small waves, semi-pro beach volleyball, quiet and family-friendly areas just off the main beach, rock formations and tide pools.</li>
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 2 ? null : 2)" :aria-expanded="(openIndex === 2).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Go up on the cliffs
+                </span>
+                <svg :class="openIndex === 2 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel2"
+              x-bind:style="openIndex === 2 ? `max-height: ${$refs.panel2.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Our ceremony site on Friday at Crescent Point is just one of a dozen pocket parks and scenic outlooks that run along the coast. 
+                There are staircases up to the cliffs from the beach every few blocks, or you can walk out from PCH on the cliff level.
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 3 ? null : 3)" :aria-expanded="(openIndex === 3).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Go on your own art-walk
+                </span>
+                <svg :class="openIndex === 3 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel3"
+              x-bind:style="openIndex === 3 ? `max-height: ${$refs.panel3.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                World-class galleries open to the public on almost every block. Our favorite section in North Laguna runs on PCH from Aster (Urth Caffe on the corner) north a few blocks. But you can find them all along PCH south of downtown, and on Forest Avenue downtown. There's also an excellent <a href="https://lagunaartmuseum.org/">art museum</a>.
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 4 ? null : 4)" :aria-expanded="(openIndex === 4).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  With kids? Meet the locals
+                </span>
+                <svg :class="openIndex === 4 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel4"
+              x-bind:style="openIndex === 4 ? `max-height: ${$refs.panel4.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Check out the Pacific Marine Mammal rescue center on Laguna Canyon Road (you drove past it on your way into town on CA-133).
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 5 ? null : 5)" :aria-expanded="(openIndex === 5).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  With kids? Alta Laguna Park
+                </span>
+                <svg :class="openIndex === 5 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel5"
+              x-bind:style="openIndex === 5 ? `max-height: ${$refs.panel5.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Just a few minutes up the big hill from our cottages/reception! It has a big playground, tennis/pickleball and shade trees.
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 6 ? null : 6)" :aria-expanded="(openIndex === 6).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Top of the World scenic view and trailhead
+                  
+                </span>
+                <svg :class="openIndex === 6 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel6"
+              x-bind:style="openIndex === 6 ? `max-height: ${$refs.panel6.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Right next to the Alta Laguna Park is the Top of the World scenic view and trailhead for several easy-to-hard foothill hikes.</li>
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 7 ? null : 7)" :aria-expanded="(openIndex === 7).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Take a day or night hike in Crystal Cove
+                </span>
+                <svg :class="openIndex === 7 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel7"
+              x-bind:style="openIndex === 7 ? `max-height: ${$refs.panel7.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                A lovely state park just a few minutes north of Laguna, on both sides of PCH.</li>
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 8 ? null : 8)" :aria-expanded="(openIndex === 8).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Saturday morning Farmers Market
+                </span>
+                <svg :class="openIndex === 8 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel8"
+              x-bind:style="openIndex === 8 ? `max-height: ${$refs.panel8.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                On Forest Ave.
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 9 ? null : 9)" :aria-expanded="(openIndex === 9).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Fine dining favorites
+                </span>
+                <svg :class="openIndex === 9 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel9"
+              x-bind:style="openIndex === 9 ? `max-height: ${$refs.panel9.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Nirvana Kitchen or Nick's.
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 10 ? null : 10)" :aria-expanded="(openIndex === 7).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Casual dining
+                </span>
+                <svg :class="openIndex === 10 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel10"
+              x-bind:style="openIndex === 10 ? `max-height: ${$refs.panel10.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                The Taco Stand or Gina's (but all the pizza around here is good)
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 11 ? null : 11)" :aria-expanded="(openIndex === 11).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Drinks + Eats
+                </span>
+                <svg :class="openIndex === 11 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel11"
+              x-bind:style="openIndex === 11 ? `max-height: ${$refs.panel11.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                South of Nick's (swanky) or Hennessey's (classic pub)
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 12 ? null : 12)" :aria-expanded="(openIndex === 12).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Late night drinks/clubs
+                </span>
+                <svg :class="openIndex === 12 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel12"
+              x-bind:style="openIndex === 12 ? `max-height: ${$refs.panel12.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Rooftop Lounge (or any other rooftop bar on one of the many hotels along the beach)<br />
+                Sandpiper Lounge (dive bar, live music)<br />
+                The Drake (upscale, jazz)
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 13 ? null : 13)" :aria-expanded="(openIndex === 13).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Treats
+                </span>
+                <svg :class="openIndex === 13 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel13"
+              x-bind:style="openIndex === 13 ? `max-height: ${$refs.panel13.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Le Macaron or South Swell for hand-dipped ice cream bars
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 14 ? null : 14)" :aria-expanded="(openIndex === 14).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Coffee
+                </span>
+                <svg :class="openIndex === 14 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel14"
+              x-bind:style="openIndex === 14 ? `max-height: ${$refs.panel14.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Urth Caffe or Laguna Coffee Co (and yes there is a Starbucks across from the main beach)</li>
+              </p>
+            </div>
+          </div>
+          <!-- Accordion Item -->
+          <div> 
+            <h3> <button @click="openIndex = (openIndex === 15 ? null : 15)" :aria-expanded="(openIndex === 15).toString()" class="w-full flex justify-between items-center py-4 focus:outline-none" >
+                <span class="font-medium text-gray-900">
+                  Groceries 
+                </span>
+                <svg :class="openIndex === 15 ? 'rotate-180' : ''" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg> </button>
+            </h3>
+            <div
+              x-ref="panel15"
+              x-bind:style="openIndex === 15 ? `max-height: ${$refs.panel15.scrollHeight}px` : ''"
+              class="overflow-hidden max-h-0 transition-all duration-200">
+              <p class="py-8 text-gray-700">
+                Whole Foods (downtown) or Ralphs (on PCH walking distance from Laguna Cottages reception venue)</li>
+              </p>
+            </div>
+          </div>
+        </div><!-- closes accordian-->
       </div>
     </div> 
   </section>
